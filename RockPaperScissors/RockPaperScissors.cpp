@@ -1,8 +1,7 @@
 #include <iostream>
 
-char ROCK = 'r';
-char PAPER = 'p';
-char SCISSORS = 's';
+
+
 
 char getComputerOption() {
     srand(time(0));

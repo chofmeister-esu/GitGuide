@@ -2,7 +2,7 @@
 
 ## This guide is meant to be followed step by step, please do not skip any part unless you know what you are doing.
 
-#### *Please report all issues or suggestions by opening an issue or emailing Jiamingw29@gmail.com.*
+#### You can reach me at Jiamingw29@gmail.com for any questions, issues, or suggestions.
 
 ## Starting Out
 
