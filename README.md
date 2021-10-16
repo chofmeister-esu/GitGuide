@@ -36,3 +36,120 @@ run ```git commit -m "Declared values for ROCK,PAPER, and SCISSORS"```. The -m t
 message to describe what you did in this commit. While there is no absolute rule on how you should write a commit
 message, it should be short yet descriptive. Now you can run ```git status``` again and git will report no change since
 you just committed your last change.
+
+# Branching
+
+Now let's say that you would like to add a feature that counts how many times the computer has won and how many times
+the player has won. You could just start editing the code you have right now. But what happens if you run into an issue
+and need to go back to the last working version? This is where branches come in. Much like a tree branch, a git branch
+starts off from a point and "branches" off. When you create a branch, git essentially creates a copy of your code for
+you to edit. This way you can make changes without affecting the last working version. In the command line,
+type ```git checkout -B score-counter```. The ```-B``` means you are creating a branch with the name ```score-counter```
+. Make sure you capitalize the B, a lower case b will create the branch but not move you onto the branch while an upper
+case B will create the branch and move you onto the branch. Now in Visual Studio, create ScoreCounter.h and add the
+following code.
+
+```c++
+#pragma
+once
+
+class ScoreCounter {
+private:
+int computerScore = 0;
+int playerScore = 0;
+public:
+int getComputerScore();
+
+void increaseComputerScore();
+
+int getPlayerScore();
+
+void increasePlayerScore();
+
+void printScores();
+};
+```
+
+Add the following to ScoreCounter.cpp
+
+```c++
+#include
+"iostream"
+#include
+"ScoreCounter.h"
+
+int ScoreCounter::getComputerScore() {
+return computerScore;
+}
+
+void ScoreCounter::increaseComputerScore() {
+computerScore++;
+}
+
+int ScoreCounter::getPlayerScore() {
+return playerScore;
+}
+
+void ScoreCounter::increasePlayerScore() {
+playerScore++;
+}
+
+void ScoreCounter::printScores() {
+std::cout << "Player Score: " << getPlayerScore() << std::endl;
+std::cout << "Computer Score: " << getComputerScore() << std::endl;
+}
+```
+
+In RockPaperScissors.cpp include the header file, declare an instance of ScoreCounter named scoreCounter, and change the
+chooseWinner function to
+
+```c++
+char chooseWinner(char uChoice, char cChoice) {
+char winner = 'C';
+if (uChoice == ROCK && cChoice == PAPER) {
+    std::cout << "Computer Wins! Paper wraps Rock." << std::endl;
+} else if (uChoice == PAPER && cChoice == SCISSORS) {
+    std::cout << "Computer Wins! Scissors cut Paper." << std::endl;
+} else if (uChoice == SCISSORS && cChoice == ROCK) {
+    std::cout << "Computer Wins! Rock smashes Scissors." << std::endl;
+} else if (uChoice == ROCK && cChoice == SCISSORS) {
+    std::cout << "You Win! Paper wraps Rock." << std::endl;
+    winner = 'P';
+} else if (uChoice == PAPER && cChoice == ROCK) {
+    std::cout << "You Win! Paper wraps Rock." << std::endl;
+    winner = 'P';
+} else if (uChoice == SCISSORS && cChoice == PAPER) {
+    std::cout << "You Win! Scissors cut Paper." << std::endl;
+    winner = 'P';
+} else {
+    std::cout << "Tie. Play again win the Game." << std::endl;
+    winner = 'T';
+}
+return winner;
+}
+```
+
+Replace the line
+
+```c++
+chooseWinner(userChoice, computerChoice);
+```
+
+with
+
+```c++
+char result = chooseWinner(userChoice, computerChoice);
+if (result=='C') {
+    scoreCounter.increaseComputerScore();
+} else if (result=='P') {
+    scoreCounter.increasePlayerScore();
+}
+scoreCounter.printScores();
+```
+Now, run ```git status``` look at the files changed, add them to be committed, and commit them.
+<details>
+  <summary>Click here for the answer</summary>
+  git status<br>
+  git add .<br>
+  git commit -m "added score counter feature"
+</details>
